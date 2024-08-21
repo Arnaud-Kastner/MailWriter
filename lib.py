@@ -25,7 +25,9 @@ class Redactor :
         for path in Path(folder_path).iterdir():
             if path.is_file():
                 nb_file += 1
-        return nb_file
+        print (nb_file)
+        # return nb_file
+
       
     #génère le nombre aléatoire qui va définir le template à utiliser
     def randomizer(file) :
@@ -33,12 +35,15 @@ class Redactor :
         global template_path
         template_path = folder_path.joinpath(str(choice)+".txt")
         return template_path
+        print(choice)
  
     #création du fichier txt contenant le mail modifié
     def file_writer(template_path) :
         with codecs.open(template_path,'r','utf-8') as file :
             data = file.read()
-            # data = data.replace(entreprise_search,entreprise_replace)# Faire en sorte de ramener les infos depuis l'UI
-            # data = data.replace(date_search,date_replace)# Faire en sorte de ramener les infos depuis l'UI
-            # data = data.replace(personne_search,personne_replace)# Faire en sorte de ramener les infos depuis l'UI
+            # data = data.replace(entreprise_search,GUI.self.entreprise)# Faire en sorte de ramener les infos depuis l'UI
+            # data = data.replace(date_search,GUI.self.date)# Faire en sorte de ramener les infos depuis l'UI
+            # data = data.replace(personne_search,GUI.self.personne)# Faire en sorte de ramener les infos depuis l'UI
             return data
+        
+    nb_finder()
