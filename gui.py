@@ -4,7 +4,7 @@
 
 import tkinter as tk
 import pyperclip as pyper
-from lib import * 
+from lib import Redactor 
 
 # import script.py as redac
 class MyGUI:
@@ -43,12 +43,12 @@ class MyGUI:
         self.personne = self.En_per.get()
         self.date = self.En_dat.get()
         self.entreprise = self.En_ent.get()
-        # nb_finder()   /!\ Je veux utiliser cette fonction ici /!\
+        nb_finder()   
         self.popup()
     
     def popup(self) :
         popup = tk.Toplevel()
-        label = tk.Label(popup, text = data)
+        label = tk.Label(popup, text = "tet")
         label.grid()
         close_btn = tk.Button(popup, text ="Close", command= popup.destroy)
         close_btn.grid(row = 2, column = 2)
@@ -56,7 +56,7 @@ class MyGUI:
         copy_btn.grid(row = 2, column= 0)
         
         def copy(self) :
-            pyper.copy(data)
+            pyper.copy("ayaya")
 
            
 MyGUI()
