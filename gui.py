@@ -4,6 +4,7 @@
 
 import tkinter as tk
 import pyperclip as pyper
+from lib import * 
 
 # import script.py as redac
 class MyGUI:
@@ -12,7 +13,7 @@ class MyGUI:
         self.root = tk.Tk()
         self.root.title("Mail Redactor")
         
-        self.titre = tk.Label (self.root, text="Ecrire un mail", font=('Arial', 20))
+        self.titre = tk.Label (self.root, text="Write your mail", font=('Arial', 20))
         self.titre.pack(padx=20,pady=20)
 
         self.text_ent = tk.Label (self.root, text="Nom de l'entreprise")
@@ -33,7 +34,7 @@ class MyGUI:
         self.En_per = tk.Entry(self.root)
         self.En_per.pack(padx=20,pady=0)
         
-        self.test_button = tk.Button(self.root, text="Test print", command=self.getinfo)
+        self.test_button = tk.Button(self.root, text="Generate", command=self.getinfo)
         self.test_button.pack(padx=10,pady=20)
         
         self.root.mainloop()
@@ -42,11 +43,12 @@ class MyGUI:
         self.personne = self.En_per.get()
         self.date = self.En_dat.get()
         self.entreprise = self.En_ent.get()
+        # nb_finder()   /!\ Je veux utiliser cette fonction ici /!\
         self.popup()
     
     def popup(self) :
         popup = tk.Toplevel()
-        label = tk.Label(popup, text = self.date)
+        label = tk.Label(popup, text = data)
         label.grid()
         close_btn = tk.Button(popup, text ="Close", command= popup.destroy)
         close_btn.grid(row = 2, column = 2)
@@ -54,6 +56,8 @@ class MyGUI:
         copy_btn.grid(row = 2, column= 0)
         
         def copy(self) :
-         pyper.copy(self.date)
-        
+            pyper.copy(data)
+
+           
 MyGUI()
+
