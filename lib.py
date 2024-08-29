@@ -34,7 +34,6 @@ class Redactor :
         self.choice = random.randint(1,self.nb_file)
         self.template_path = self.folder_path.joinpath(str(self.choice)+".txt")
         return self.template_path
-        print(self.template_path)
         return self.choice
  
     #création du fichier txt contenant le mail modifié
