@@ -5,45 +5,60 @@
 import random
 from pathlib import Path
 import codecs
+import glob
 
 class Redactor :
+    def __init__ (self) :                
+        #Définition du texte à rechercher dans les templates
+        self.entreprise_search = "~Entreprise~"
+        self.date_search = "~Date~"
+        self.personne_search = "~Personne~"
     
-    #Définition du texte à rechercher dans les templates
-    entreprise_search = "~Entreprise~"
-    date_search = "~Date~"
-    personne_search = "~Personne~"
-    poste_search = "~Poste~"
-    
-    # Chemin pour aller vers le dossier contenant les templates
-    global folder_path 
-    folder_path =Path("C:\\").joinpath("Users\\").joinpath("akastner02\\").joinpath("Desktop\\").joinpath("Mails\\").joinpath("Template_reponse\\")
-       
+        # Chemin pour aller vers le dossier contenant les templates
+        self.folder_path =Path("C:\\").joinpath("Users\\").joinpath("akastner02\\").joinpath("Desktop\\").joinpath("Mails\\").joinpath("Template_reponse\\")
+        # self.g_folder_path = glob.glob('C:\\Users\\akastner02\\Desktop\\Mails\\Template_reponse\*.txt')
+
     # Compte le nombre de fichier dans le dossier pour définir le nombre max 
-    def nb_finder() :
-        global nb_file
-        nb_file = 0
-        for path in Path(folder_path).iterdir():
+    def nb_finder(self) :
+        self.nb_file = 0
+        for path in Path(self.folder_path).iterdir():
             if path.is_file():
-                nb_file += 1
-        print (nb_file)
-        # return nb_file
+                self.nb_file += 1
+        return self.nb_file
+        # self.nb_file = glob.glob(self.g_folder_path)
+        # print (len(self.nb_file))
 
       
     #génère le nombre aléatoire qui va définir le template à utiliser
-    def randomizer(file) :
-        choice = random.randint(1,file)
-        global template_path
-        template_path = folder_path.joinpath(str(choice)+".txt")
-        return template_path
-        print(choice)
+    def randomizer(self) :
+        self.choice = random.randint(1,self.nb_file)
+        self.template_path = self.folder_path.joinpath(str(self.choice)+".txt")
+        return self.template_path
+        print(self.template_path)
+        return self.choice
  
     #création du fichier txt contenant le mail modifié
-    def file_writer(template_path) :
-        with codecs.open(template_path,'r','utf-8') as file :
-            data = file.read()
-            # data = data.replace(entreprise_search,GUI.self.entreprise)# Faire en sorte de ramener les infos depuis l'UI
-            # data = data.replace(date_search,GUI.self.date)# Faire en sorte de ramener les infos depuis l'UI
-            # data = data.replace(personne_search,GUI.self.personne)# Faire en sorte de ramener les infos depuis l'UI
-            return data
+    def file_writer(self) :
+        with codecs.open(self.template_path,'r','utf-8') as file :
+            self.data = file.read()
+            return self.data
         
-    nb_finder()
+    def list_finder(self) :
+        g_folder_path =  'C:\\Users\\akastner02\\Desktop\\Mails\\Template_reponse\*.txt'
+        file_list = glob.glob(g_folder_path)
+        print(len(file_list))        
+    
+    #Fonction que vérifie que les différents fichiers txt existent
+    def ver_file_exist(self,file_name) :
+        path_to_verify = self.folder_path.joinpath(str(file_name))
+        if Path.exists(path_to_verify) == False:
+            return False        
+        else :
+            return True
+ 
+    #Fonction qui va créer le nouveau template       
+    def file_create(self,file_name,file_text) :
+        new_file_path = self.folder_path.joinpath(str(file_name))
+        with codecs.open(new_file_path,'w','utf-8') as mess :
+            mess.write(file_text)
+        return True
